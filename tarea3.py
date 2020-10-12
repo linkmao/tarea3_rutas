@@ -41,10 +41,30 @@ def ruteo(distancias:dict, ruta:list)->dict:
             if ruta[y]!=centro:
                 parejas.append(centro)
                 parejas.append(ruta[y])
+                
+    # Creacion de diccionarios de apoyo
+    indice={}
+    restriccion={}
+    for i in range(0,paradas):
+        indice[ruta[i]]=i*2*(paradas-1)
+        restriccion[ruta[i]]=0
+
     
+
+    mover=0
+    analiza_lista={}
+    for x in range (0,paradas):
+        for y in range (0,paradas):
+            analiza_lista.append(distancias)
+        
+    
+    
+    
+    
+    print (indice)
+    print (restriccion)
     print (parejas)
-         
-    print (distancias['H','A'])      
+ 
     return {'exito':False}
 
 
