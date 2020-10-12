@@ -43,39 +43,12 @@ def ruteo(distancias:dict, ruta:list)->dict:
                 parejas.append(ruta[y])
     
     print (parejas)
-    # Inicio de rutina de envio de ciclos y determinacion del minimo
-    inicio=0
-    final=2*(paradas-1)
-    restriccion=[]    # Lista que guarda las ciudades ya visitadas
-    ruta_final=[] # Contiene la ruta final
-    distancias_minimas=[]
-    temporal=[]
-    
-    for m in range(0,paradas):
-      ciclo=[]
-      for t in range(inicio,final):
-          ciclo.append(parejas[t])     # Se construye el ciclo
-      for n in range (0,paradas+2,2):
-          temporal.append(distancias[ciclo[n], ciclo[n+1]])
-      distancias_minimas.append(min (temporal))
-      lugar=temporal.index(min(temporal))
-      ruta_final.append(ciclo[2*lugar])
-      ruta_final.append(ciclo[2*lugar+1])
-      restriccion.append(ciclo[2*lugar])          
-        
-        
-        
- #     ruta_final.append(minimo(distancias,ciclo,restriccion))  
-      inicio=final
-      final=inicio+2*(paradas-1)
-  
-        
-          
+         
     print (distancias['H','A'])      
     return {'exito':False}
 
 
-#def minimo(longitudes: list, datos:list,omitir:list)-> list:
+
     
   
 
