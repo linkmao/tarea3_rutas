@@ -54,9 +54,10 @@ def ruteo(distancias:dict, ruta:list)->dict:
     mover=0
     analiza_lista={}
     for x in range (0,paradas):
-        for y in range (0,paradas):
-            analiza_lista.append(distancias)
-        
+        for y in range (mover,paradas+2):
+            analiza_lista.append(distancias[mover],[mover+1])
+        print (analiza_lista)
+        print ("nada")
     
     
     
