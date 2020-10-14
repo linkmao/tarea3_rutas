@@ -63,7 +63,7 @@ def ruteo(distancias:dict, ruta:list)->dict:
     print (lista)
     print (len (lista))
    
-    
+    print (distancias['A','B']) 
    
     return {'exito':False}
 
