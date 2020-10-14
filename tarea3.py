@@ -41,29 +41,60 @@ def ruteo(distancias:dict, ruta:list)->dict:
             if ruta[y]!=centro:
                 parejas.append(centro)
                 parejas.append(ruta[y])
+    
                 
+    print ("lista de parejas" )
+    print(parejas)
+    print ("Numero de paradas: " + str(paradas) )
+    
+    
     # Creacion de diccionarios de apoyo
     indice={}
     restriccion={}
     for i in range(0,paradas):
         indice[ruta[i]]=i*2*(paradas-1)
         restriccion[ruta[i]]=0
-
     
-
+    
+    lugar=0
+    minimos=[]
     mover=0
-    analiza_lista={}
+    analiza_lista=[]
     for x in range (0,paradas):
-        for y in range (mover,paradas+2):
-            analiza_lista.append(distancias[mover],[mover+1])
-        print (analiza_lista)
-        print ("nada")
-    
-    
+        if x != paradas-1:
+        
+            for y in range (mover,mover+2*paradas-2,2):
+                if restriccion[parejas[y+1]]==0:
+                    analiza_lista.append(distancias[parejas[y],parejas[y+1]])
+                else:
+                    analiza_lista.append(100000000)
+            print ("Lista a analizar")
+            print (analiza_lista)
+            minimos.append(min(analiza_lista))
+            print ("lista de minimos")
+            print (minimos)
+            lugar=analiza_lista.index(min(analiza_lista))
+            print ("Lugar donde fue encontrado el minimo")
+            print (lugar)
+            restriccion[parejas[mover+(2*lugar)]]=1
+            print ("restriccion")
+            print (restriccion)
+            mover=indice[parejas[mover+2*lugar+1]]
+            print ("Inicio del proximo movimiento")
+            print (mover)
+            analiza_lista=[]
+        else:
+            for y in range(0,paradas):
+                if restriccion [ruta[y]]==0:
+                    minimos.append(distancias[ruta[y],ruta[len(ruta)-1]])
+          
+            
+        
     
     
     print (indice)
     print (restriccion)
+    print (minimos)
     print (parejas)
  
     return {'exito':False}
@@ -73,4 +104,4 @@ def ruteo(distancias:dict, ruta:list)->dict:
     
   
 
-print (ruteo(ciudades1,ruta3))
+print (ruteo(ciudades1,ruta2))
