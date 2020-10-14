@@ -7,7 +7,7 @@ Created on Fri Oct  9 12:14:05 2020
 
 # Tarea semana tres: implementacion de diccionarios y en general todo lo trabajasdo hasta la fecha
 # problema de optimizacion de distancias
-
+# Nueva version en la lógica del programa
 
 #Definicion de los diccionarios de ejemplo
 ciudades1={('H', 'H'): 0, ('H', 'A'): 21, ('H', 'B'): 57, ('H', 'C'): 58, ('H', 'D'): 195, ('H', 'E'): 245, ('H', 'F'): 241,
@@ -104,4 +104,4 @@ def ruteo(distancias:dict, ruta:list)->dict:
     
   
 
-print (ruteo(ciudades1,ruta2))
+print (ruteo(ciudades1,ruta3))
