@@ -5,6 +5,11 @@ Created on Fri Oct  9 12:14:05 2020
 @author: Mauricio
 """
 
+
+# Esta libreria permite combinar o permutar segun el caso
+from itertools import combinations, permutations
+
+
 # Tarea semana tres: implementacion de diccionarios y en general todo lo trabajasdo hasta la fecha
 # problema de optimizacion de distancias
 # Nueva version en la lógica del programa
@@ -32,71 +37,34 @@ ruta2= ['H', 'B', 'E', 'A', 'C', 'D', 'H']
 ruta3=['H','A','B','C','D','H']
 
 
+
 def ruteo(distancias:dict, ruta:list)->dict:
     paradas = len(ruta)-1  # Determina el numero de paradas necesarias
-    parejas=[] # Guarda todas las parejas posibles
-    for x in range (0,paradas): # Ciclo de paradas
-        centro=ruta[x]
-        for y in range (0,paradas): #este es el ciclo de creacion de parejas
-            if ruta[y]!=centro:
-                parejas.append(centro)
-                parejas.append(ruta[y])
+    ruta_corta=ruta.copy()
+    ruta_corta.pop(0)   # Ellimino la salida
+    ruta_corta.pop(len(ruta_corta)-1)   # Elimino la llegada
+    print (ruta_corta)
+    permutado=list(permutations(ruta_corta, len(ruta_corta)))
+    print (permutado)
+    print (len(permutado))
     
-                
-    print ("lista de parejas" )
-    print(parejas)
-    print ("Numero de paradas: " + str(paradas) )
-    
-    
-    # Creacion de diccionarios de apoyo
-    indice={}
-    restriccion={}
-    for i in range(0,paradas):
-        indice[ruta[i]]=i*2*(paradas-1)
-        restriccion[ruta[i]]=0
-    
-    
-    lugar=0
-    minimos=[]
-    mover=0
-    analiza_lista=[]
-    for x in range (0,paradas):
-        if x != paradas-1:
+    # Conversion de las tuplas a listas
+    lista=[]
         
-            for y in range (mover,mover+2*paradas-2,2):
-                if restriccion[parejas[y+1]]==0:
-                    analiza_lista.append(distancias[parejas[y],parejas[y+1]])
-                else:
-                    analiza_lista.append(100000000)
-            print ("Lista a analizar")
-            print (analiza_lista)
-            minimos.append(min(analiza_lista))
-            print ("lista de minimos")
-            print (minimos)
-            lugar=analiza_lista.index(min(analiza_lista))
-            print ("Lugar donde fue encontrado el minimo")
-            print (lugar)
-            restriccion[parejas[mover+(2*lugar)]]=1
-            print ("restriccion")
-            print (restriccion)
-            mover=indice[parejas[mover+2*lugar+1]]
-            print ("Inicio del proximo movimiento")
-            print (mover)
-            analiza_lista=[]
-        else:
-            for y in range(0,paradas):
-                if restriccion [ruta[y]]==0:
-                    minimos.append(distancias[ruta[y],ruta[len(ruta)-1]])
-          
-            
-        
+    for x in range(0,len(permutado)):
+        lista.append(list(permutado[x]))
+    print (lista)
+    print (len(lista))
     
+    #Insercion de inicio y final en cada lista
+    for x in range(0,len(lista)):
+        lista[x].insert(0,ruta[0])
+        lista[x].append(ruta[len(ruta)-1])
+    print (lista)
+    print (len (lista))
+   
     
-    print (indice)
-    print (restriccion)
-    print (minimos)
-    print (parejas)
- 
+   
     return {'exito':False}
 
 
