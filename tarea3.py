@@ -7,7 +7,7 @@ Created on Fri Oct  9 12:14:05 2020
 
 
 # Esta libreria permite combinar o permutar segun el caso
-from itertools import combinations, permutations
+from itertools import  permutations
 
 
 # Tarea semana tres: implementacion de diccionarios y en general todo lo trabajasdo hasta la fecha
@@ -35,41 +35,80 @@ ciudades2={('H', 'H'): 0, ('H', 'A'): 60, ('H', 'B'): 202, ('H', 'C'): 206, ('H'
 ruta1= ['H', 'A', 'B', 'C', 'D', 'E', 'F', 'H']
 ruta2= ['H', 'B', 'E', 'A', 'C', 'D', 'H']
 ruta3=['H','A','B','C','D','H']
+ruta4= ['H','A','B','F','E','H']
 
 
 
 def ruteo(distancias:dict, ruta:list)->dict:
-    paradas = len(ruta)-1  # Determina el numero de paradas necesarias
-    ruta_corta=ruta.copy()
-    ruta_corta.pop(0)   # Ellimino la salida
-    ruta_corta.pop(len(ruta_corta)-1)   # Elimino la llegada
-    print (ruta_corta)
-    permutado=list(permutations(ruta_corta, len(ruta_corta)))
-    print (permutado)
-    print (len(permutado))
-    
-    # Conversion de las tuplas a listas
-    lista=[]
+    try:
+        #Validacion del diccionario de entrada    
+        # Validacion que todos sean numeros
+        for x in distancias:
+            if type(distancias[x])!= int:
+                raise Exception("Por favor revisar los datos de entrada")
+        # Validacion de que inicio y final sea cero
+        for x in distancias:
+            if x[0]==x[1] and distancias[x]!=0:
+                raise Exception("Por favor revisar los datos de entrada")
+        ruta_corta=ruta.copy()
+        ruta_corta.pop(0)   # Ellimino la salida
+        ruta_corta.pop(len(ruta_corta)-1)   # Elimino la llegada
+        print (ruta_corta)
+        permutado=list(permutations(ruta_corta, len(ruta_corta)))
+        print (permutado)
+        print (len(permutado))
         
-    for x in range(0,len(permutado)):
-        lista.append(list(permutado[x]))
-    print (lista)
-    print (len(lista))
-    
-    #Insercion de inicio y final en cada lista
-    for x in range(0,len(lista)):
-        lista[x].insert(0,ruta[0])
-        lista[x].append(ruta[len(ruta)-1])
-    print (lista)
-    print (len (lista))
-   
-    print (distancias['A','B']) 
-   
-    return {'exito':False}
+        # Conversion de las tuplas a listas
+        lista=[]
+            
+        for x in range(0,len(permutado)):
+            lista.append(list(permutado[x]))
+        print (lista)
+        print (len(lista))
+        
+        #Insercion de inicio y final en cada lista
+        for x in range(0,len(lista)):
+            lista[x].insert(0,ruta[0])
+            lista[x].append(ruta[len(ruta)-1])
+        print (lista)
+        print (len (lista))
+       
+        
+        totales=[]
+        # inicio de la sumatoria de cada ruta
+        for x in range(0,len(lista)):
+            suma=0
+            for y in range (0,len(lista[x])-1):
+                suma= suma + distancias[lista[x][y], lista[x][y+1]]
+            totales.append(suma)
+        print (totales)
+        
+        dis_minima=min(totales)
+        ubi_minima=totales.index(dis_minima)
+        ruta_optima = lista[ubi_minima]
+        print ("Distancia minima")
+        print (dis_minima)
+        print ("ubicacion de la ruta: ")
+        print (ubi_minima)
+        print ("Ruta")
+        print (ruta_optima)
+        
+        #creacion de la cadena ruta con las especificacions 'A-B-C-D'
+        texto_ruta=""
+        for x in range (0,len(ruta_optima)):
+            if x== len(ruta_optima)-1:
+                texto_ruta=texto_ruta+ruta_optima[x]
+            else:
+                texto_ruta=texto_ruta+ruta_optima[x]+"-"
+        print (texto_ruta)
+        
+        salida={'ruta':texto_ruta,'distancia':dis_minima}
+        
+       
+        return salida
+    except Exception as e:
+        print(e)
 
-
-
-    
   
 
-print (ruteo(ciudades1,ruta3))
+print (ruteo(ciudades1,ruta1))
