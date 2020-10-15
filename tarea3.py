@@ -53,26 +53,19 @@ def ruteo(distancias:dict, ruta:list)->dict:
         ruta_corta=ruta.copy()
         ruta_corta.pop(0)   # Ellimino la salida
         ruta_corta.pop(len(ruta_corta)-1)   # Elimino la llegada
-        print (ruta_corta)
         permutado=list(permutations(ruta_corta, len(ruta_corta)))
-        print (permutado)
-        print (len(permutado))
-        
+                
         # Conversion de las tuplas a listas
         lista=[]
             
         for x in range(0,len(permutado)):
             lista.append(list(permutado[x]))
-        print (lista)
-        print (len(lista))
-        
+                
         #Insercion de inicio y final en cada lista
         for x in range(0,len(lista)):
             lista[x].insert(0,ruta[0])
             lista[x].append(ruta[len(ruta)-1])
-        print (lista)
-        print (len (lista))
-       
+      
         
         totales=[]
         # inicio de la sumatoria de cada ruta
@@ -81,17 +74,11 @@ def ruteo(distancias:dict, ruta:list)->dict:
             for y in range (0,len(lista[x])-1):
                 suma= suma + distancias[lista[x][y], lista[x][y+1]]
             totales.append(suma)
-        print (totales)
-        
+                
         dis_minima=min(totales)
         ubi_minima=totales.index(dis_minima)
         ruta_optima = lista[ubi_minima]
-        print ("Distancia minima")
-        print (dis_minima)
-        print ("ubicacion de la ruta: ")
-        print (ubi_minima)
-        print ("Ruta")
-        print (ruta_optima)
+       
         
         #creacion de la cadena ruta con las especificacions 'A-B-C-D'
         texto_ruta=""
@@ -100,15 +87,12 @@ def ruteo(distancias:dict, ruta:list)->dict:
                 texto_ruta=texto_ruta+ruta_optima[x]
             else:
                 texto_ruta=texto_ruta+ruta_optima[x]+"-"
-        print (texto_ruta)
-        
+                
         salida={'ruta':texto_ruta,'distancia':dis_minima}
-        
-       
+    
         return salida
     except Exception as e:
         print(e)
-
   
 
 print (ruteo(ciudades1,ruta1))
